@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Finder;
+using NUnit.Framework;
 using System;
 using System.Numerics;
 
@@ -9,13 +10,23 @@ namespace Finder.Test
     {
 
         [Test]
-        public void Test_Find_Letter_And_ResultFound_Count_Returned()
+        public void Test_Find_Lower_Letter_And_ResultFound_Count_Returned()
         {
             var coverter = new ValueFinder();
 
             int counter = coverter.Search<string, string>("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eanean sodales justo et Enim ornare, a congue lacus commodo.", "e");
 
             Assert.AreEqual(10, counter);
+        }
+
+        [Test]
+        public void Test_Find_Upper_Letter_And_ResultFound_Count_Returned()
+        {
+            var coverter = new ValueFinder();
+
+            int counter = coverter.Search<string, string>("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eanean sodales justo et Enim ornare, a congue lacus commodo.", "E");
+
+            Assert.AreEqual(2, counter);
         }
 
         [Test]
@@ -53,7 +64,7 @@ namespace Finder.Test
         {
             var coverter = new ValueFinder();
 
-            var ex = Assert.Throws<ArgumentException>(() => coverter.Search<string, string>("", "e"));
+            var ex = Assert.Throws<ArgumentException>(() => coverter.Search<string, string>(string.Empty, "e"));
 
             Assert.AreEqual("value cannot be empty", ex.Message);
         }
@@ -63,7 +74,7 @@ namespace Finder.Test
         {
             var coverter = new ValueFinder();
 
-            var ex = Assert.Throws<ArgumentException>(() => coverter.Search<string, string>("asdasdasdasdasd", ""));
+            var ex = Assert.Throws<ArgumentException>(() => coverter.Search<string, string>("asdasdasdasdasd", string.Empty));
 
             Assert.AreEqual("seach value cannot be empty", ex.Message);
 
